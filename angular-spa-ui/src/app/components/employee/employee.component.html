@@ -1,0 +1,19 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>{{employee.name}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://i.pinimg.com/originals/c4/0d/7a/c40d7a7060fb74926c257db982b6ddaf.jpg">
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>DEPARTMENT - {{employee.department.name}}</mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>IS ACTIVE - {{employee.isActive}}</mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>DELETE</button>
+        <button mat-button>DISACTIVATE</button>
+
+    </mat-card-actions>
+</mat-card>
