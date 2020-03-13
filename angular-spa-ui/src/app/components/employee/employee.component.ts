@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 export interface Department {
   id: number;
@@ -20,9 +20,17 @@ export class EmployeeComponent implements OnInit {
 
   employee: Employee = { id: 1, name: 'Test1', isActive: true, department: {id: 2, name: 'Tech'}};
 
+
+  @Input()
+  id;
+  @Input()
+  action;
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
 
 }

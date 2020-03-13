@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 
 export interface Department {
   id: number;
@@ -16,13 +16,22 @@ export interface Employee {
   templateUrl: './edit-employee.component.html',
   styleUrls: ['./edit-employee.component.css']
 })
-export class EditEmployeeComponent implements OnInit {
+export class EditEmployeeComponent implements OnInit, OnChanges {
 
   employee: Employee = { id: 1, name: 'Test1', isActive: true, department: {id: 2, name: 'Tech'}};
+
+  @Input()
+  id;
+  @Input()
+  action;
 
   constructor() { }
 
   ngOnInit() {
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+
 
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 
@@ -25,6 +25,14 @@ const ELEMENT_DATA: Employee[] = [
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
+
+  id: number;
+
+  action: string;
+ç
+  @Output()
+  startAction = new EventEmitter<{id: number, action: string}>();
+
   displayedColumns: string[] = ['id', 'name', 'isActive', 'department.name', 'actions'];
   dataSource = new MatTableDataSource<Employee>(ELEMENT_DATA);
 
@@ -32,6 +40,22 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  edit(id) {
+    this.id = id;
+    this.action = 'edit';
+    this.startAction.emit({id: this.id, action: this.action});
+  }
+
+  view(id) {
+    this.id = id;
+    this.action = 'view';
+    this.startAction.emit({id: this.id, action: this.action});
+  }
+
+  delete(id) {
+
   }
 
 
