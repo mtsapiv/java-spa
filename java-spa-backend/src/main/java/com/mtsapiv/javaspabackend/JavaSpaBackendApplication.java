@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class JavaSpaBackendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(JavaSpaBackendApplication.class, args);
-	}
-
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(JavaSpaBackendApplication.class, args);
+    }
 }
