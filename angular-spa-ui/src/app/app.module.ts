@@ -21,6 +21,7 @@ import { MainComponent } from './components/main/main.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import {FormsModule} from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'employees', component: EmployeesComponent },
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatGridListModule,
     MatIconModule,
+    HttpClientModule,
     RouterModule.forRoot(
         appRoutes,
         { enableTracing: true } // <-- debugging purposes only

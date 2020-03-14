@@ -1,23 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator, MatTableDataSource, PageEvent} from '@angular/material';
+import {EmployeeService} from '../../services/employee.service';
+import {Employee} from '../../app.models';
 
-
-export interface Department {
-  id: number;
-  name: string;
-}
-export interface Employee {
-  id: number;
-  name: string;
-  isActive: boolean;
-  department: Department;
-}
-
-const ELEMENT_DATA: Employee[] = [
-  {id: 1, name: 'Test1', isActive: true, department: {id: 2, name: 'Tech'}},
-  {id: 2, name: 'Test2', isActive: true, department: {id: 2, name: 'Tech'}},
-  {id: 3, name: 'Test3', isActive: true, department: {id: 2, name: 'Tech'}},
-];
 
 @Component({
   selector: 'app-employees',
@@ -29,17 +14,45 @@ export class EmployeesComponent implements OnInit {
   id: number;
 
   action: string;
-ç
+
+  employees: any = [];
+
+  pageSize = 5;
+
+  pageIndex = 0;
+
+  length = 200;
+
   @Output()
   startAction = new EventEmitter<{id: number, action: string}>();
 
   displayedColumns: string[] = ['id', 'name', 'isActive', 'department.name', 'actions'];
-  dataSource = new MatTableDataSource<Employee>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Employee>(this.employees);
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+  constructor(private employeeService: EmployeeService) {}
+
+  getEmployees(event?: PageEvent) {
+
+
+    this.employeeService.getAllEmployees(this.pageIndex, this.pageSize)
+        .subscribe(
+            result => {
+              this.employees = result;
+              console.log(this.employees);
+              this.dataSource = new MatTableDataSource<Employee>(this.employees);
+              this.pageIndex = 0;
+              this.pageSize = 10;
+              this.length = 200;
+
+            }
+        );
+  }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.getEmployees(null);
   }
 
   edit(id) {
@@ -57,7 +70,5 @@ export class EmployeesComponent implements OnInit {
   delete(id) {
 
   }
-
-
 }
 

@@ -28,4 +28,10 @@ export class MainComponent implements OnInit {
       this.showEdit = true;
     }
   }
+
+  closeCard(data) {
+    if (data === 'close-view') {
+      this.showView = false;
+    }
+  }
 }

@@ -4,7 +4,7 @@
     </div>
     <div class="col-md-5 offset-md-1">
       <app-edit-employee  *ngIf="showEdit" [id] = "id" [action] = "action"></app-edit-employee>
-        <app-employee  *ngIf="showView" [id] = "id" [action] = "action"></app-employee>
+        <app-employee  *ngIf="showView" [id] = "id" [action] = "action" (closeViewAction) = "closeCard($event)"></app-employee>
     </div>
   </div>
 
