@@ -16,7 +16,7 @@ export class EmployeeService {
     }
 
     getAllEmployeesByName(page, size, name) {
-        return this.http.get(environment.employees + '?page=' + page + '&size=' + size + '&name=' + name);
+        return this.http.get(environment.employees + '/find?page=' + page + '&size=' + size + '&name=' + name);
     }
 
     getEmployeeById(id) {
