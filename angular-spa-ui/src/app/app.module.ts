@@ -10,7 +10,7 @@ import {
   MatButtonModule,
   MatCardModule, MatDividerModule, MatFormFieldModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule,
   MatPaginatorModule,
-  MatProgressBarModule,
+  MatProgressBarModule, MatProgressSpinnerModule,
   MatSelectModule,
   MatTableModule,
   MatToolbarModule
@@ -22,10 +22,14 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
 import {FormsModule} from '@angular/forms';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import {HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import {AuthGuardService} from './services/auth.guard.service';
+import {AuthService} from './services/auth.service';
 
 const appRoutes: Routes = [
-  { path: 'employees', component: EmployeesComponent },
-  { path: 'employee/:id',      component: EmployeeComponent },
+  { path: '', component: MainComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent },
+
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -37,7 +41,8 @@ const appRoutes: Routes = [
     ToolbarComponent,
     MainComponent,
     EditEmployeeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -59,12 +64,13 @@ const appRoutes: Routes = [
     MatGridListModule,
     MatIconModule,
     HttpClientModule,
+      MatProgressSpinnerModule,
     RouterModule.forRoot(
         appRoutes,
         { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [AuthGuardService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

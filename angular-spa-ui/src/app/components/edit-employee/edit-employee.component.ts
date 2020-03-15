@@ -33,7 +33,7 @@ export class EditEmployeeComponent implements OnInit, OnChanges {
   closeEditAction = new EventEmitter<string>();
 
 
-  employee: Employee;
+  employee: any;
 
 
   constructor(private employeeService: EmployeeService) {

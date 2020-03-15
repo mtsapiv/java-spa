@@ -1,9 +1,9 @@
 <div class="mat-elevation-z4">
-  <mat-form-field>
+  <mat-form-field class="filter">
     <mat-label>Filter</mat-label>
     <input [(ngModel)]="name" matInput (keyup)="getEmployeesByName()" placeholder="Name of employee">
   </mat-form-field>
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table  class="table" [dataSource]="dataSource">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
