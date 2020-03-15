@@ -4,6 +4,8 @@ import com.mtsapiv.javaspabackend.domain.Employee;
 import com.mtsapiv.javaspabackend.repository.EmployeeRepository;
 import com.mtsapiv.javaspabackend.repository.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -69,20 +71,56 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findAll(int page, int size) {
+    public List<Employee> findAll() {
+        String sql = "SELECT * from employee " +
+                "  LEFT JOIN  department ON" +
+                " employee.departmentId = department.id";
+
+        RowMapper<Employee> rowMapper = new EmployeeMapper();
+
+        List<Employee> employees = jdbcTemplate.query(sql, rowMapper);
+
+        return employees;
+    }
+
+    @Override
+    public Page<Employee> findAll(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         String sql = "SELECT * from employee " +
                 "  LEFT JOIN  department ON" +
                 " employee.departmentId = department.id" +
                 " LIMIT ? OFFSET ? ";
+
+        String sqlCount = "SELECT COUNT(*) from employee";
+
         RowMapper<Employee> rowMapper = new EmployeeMapper();
 
+
+
         List<Employee> employees = jdbcTemplate.query(sql, rowMapper, pageable.getPageSize(), pageable.getOffset());
+
+        int count = jdbcTemplate.queryForObject(sqlCount, Integer.class);
+        Page<Employee> pageEmpl = new PageImpl<>(employees, pageable, count);
+        return pageEmpl;
+    }
+
+    @Override
+    public List<Employee> findByName(String startWith) {
+
+        String sql = "SELECT * from employee" +
+                " LEFT JOIN  department " +
+                " ON employee.departmentId = department.id " +
+                " WHERE employee.name LIKE ? ";
+
+        RowMapper<Employee> rowMapper = new EmployeeMapper();
+
+        List<Employee> employees = jdbcTemplate.query(sql, rowMapper, startWith+"%");
+
         return employees;
     }
 
     @Override
-    public List<Employee> findByName(int page, int size, String startWith) {
+    public Page<Employee> findByName(int page, int size, String startWith) {
         Pageable pageable = PageRequest.of(page, size);
 
         String sql = "SELECT * from employee" +
@@ -90,11 +128,18 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                 " ON employee.departmentId = department.id " +
                 " WHERE employee.name LIKE ? " +
                 " LIMIT ? OFFSET ? ";
+        String sqlCount = "SELECT COUNT(*) from employee " +
+                "WHERE employee.name LIKE ?";
+
 
         RowMapper<Employee> rowMapper = new EmployeeMapper();
 
         List<Employee> employees = jdbcTemplate.query(sql, rowMapper, startWith+"%", pageable.getPageSize(), pageable.getOffset());
-        return employees;
+
+        int count = jdbcTemplate.queryForObject(sqlCount, Integer.class, startWith);
+        Page<Employee> pageEmpl = new PageImpl<>(employees, pageable, count);
+
+        return pageEmpl;
     }
 
 }

@@ -7,6 +7,7 @@ import com.mtsapiv.javaspabackend.service.dto.EmployeeResponseDTO;
 import com.mtsapiv.javaspabackend.service.dto.EmployeeUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,5 +27,6 @@ public interface EmployeeMapper {
     Employee employeeUpdateDTOToEmployee(EmployeeUpdateDTO employee);
 
     List<EmployeeResponseDTO> employeeListToEmployeeResponseList(List<Employee> employees);
+
 
 }

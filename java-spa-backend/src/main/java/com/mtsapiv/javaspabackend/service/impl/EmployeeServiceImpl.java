@@ -12,6 +12,8 @@ import com.mtsapiv.javaspabackend.service.dto.EmployeeUpdateDTO;
 import com.mtsapiv.javaspabackend.service.mapper.DepartmentMapper;
 import com.mtsapiv.javaspabackend.service.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,15 +56,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeResponseDTO> findAll(int page, int size) {
-        List<Employee> employees = employeeRepository.findAll(page, size);
-        return employeeMapper.employeeListToEmployeeResponseList(employees);
+    public Page<EmployeeResponseDTO> findAll(int page, int size) {
+        Page<Employee> employees = employeeRepository.findAll(page, size);
+        return employeePageToEmployeeResponsePage(employees);
     }
 
     @Override
-    public List<EmployeeResponseDTO> findByName(int page, int size, String name) {
-        List<Employee> employees = employeeRepository.findByName(page, size, name);
-        return employeeMapper.employeeListToEmployeeResponseList(employees);
+    public Page<EmployeeResponseDTO> findByName(int page, int size, String name) {
+        Page<Employee> employees = employeeRepository.findByName(page, size, name);
+        return employeePageToEmployeeResponsePage(employees);
     }
 
     @Override
@@ -76,5 +78,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<DepartmentDTO> findAllDepartments() {
         List<Department> departments = departmentRepository.findAll();
         return departmentMapper.departmentListToDepartmentResponseList(departments);
+    }
+
+    private Page<EmployeeResponseDTO> employeePageToEmployeeResponsePage (Page<Employee> employeePage) {
+        Page<EmployeeResponseDTO> page = employeePage.map(employee -> employeeMapper.employeeToResponseDTO(employee));
+        return page;
     }
 }
