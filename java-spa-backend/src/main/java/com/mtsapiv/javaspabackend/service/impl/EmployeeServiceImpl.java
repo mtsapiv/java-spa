@@ -73,8 +73,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<DepartmentDTO> findAllDepartments(int page, int size) {
-        List<Department> departments = departmentRepository.findAll(page, size);
+    public List<DepartmentDTO> findAllDepartments() {
+        List<Department> departments = departmentRepository.findAll();
         return departmentMapper.departmentListToDepartmentResponseList(departments);
     }
 }

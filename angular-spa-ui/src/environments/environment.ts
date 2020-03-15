@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   employees: 'http://localhost:8082/employee/employees',
   employee: 'http://localhost:8082/employee',
+  departments: 'http://localhost:8082/employee/departments'
 
 };
 

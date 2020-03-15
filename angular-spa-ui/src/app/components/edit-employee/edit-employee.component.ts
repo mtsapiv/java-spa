@@ -1,4 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {EmployeeService} from '../../services/employee.service';
+import {EmployeeUpdate} from '../../app.models';
 
 export interface Department {
   id: number;
@@ -18,19 +20,68 @@ export interface Employee {
 })
 export class EditEmployeeComponent implements OnInit, OnChanges {
 
-  employee: Employee = { id: 1, name: 'Test1', isActive: true, department: {id: 2, name: 'Tech'}};
-
   @Input()
   id;
   @Input()
   action;
 
-  constructor() { }
+  departments;
+
+  isActive = [true, false];
+
+  @Output()
+  closeEditAction = new EventEmitter<string>();
+
+
+  employee: Employee;
+
+
+  constructor(private employeeService: EmployeeService) {
+  }
 
   ngOnInit() {
+    this.getDepartments();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.getEmployee();
+  }
+
+  getDepartments() {
+    this.employeeService.getDepartments()
+        .subscribe(
+            result => {
+              this.departments = result;
+            }
+        );
+  }
+
+  getEmployee() {
+    this.employeeService.getEmployeeById(this.id)
+        .subscribe(result => {
+          this.employee = result;
+        });
+  }
+
+  close() {
+    this.action = 'close-edit';
+    this.closeEditAction.emit(this.action);
+  }
+
+  setNewEmployee(id, name, isActive, departmentId) {
+    let updEmploye: EmployeeUpdate = {
+      id: id,
+      name: name,
+      isActive: isActive,
+      departmentId: departmentId
+    };
+
+    this.employeeService.updateEmployee(updEmploye)
+        .subscribe(
+            result => {
+              this.close();
+            }
+        );
   }
 
 

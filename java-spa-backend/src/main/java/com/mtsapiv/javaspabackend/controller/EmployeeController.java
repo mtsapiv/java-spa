@@ -1,6 +1,8 @@
 package com.mtsapiv.javaspabackend.controller;
 
+import com.mtsapiv.javaspabackend.domain.Department;
 import com.mtsapiv.javaspabackend.service.EmployeeService;
+import com.mtsapiv.javaspabackend.service.dto.DepartmentDTO;
 import com.mtsapiv.javaspabackend.service.dto.EmployeeDTO;
 import com.mtsapiv.javaspabackend.service.dto.EmployeeResponseDTO;
 import com.mtsapiv.javaspabackend.service.dto.EmployeeUpdateDTO;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("employee")
 public class EmployeeController {
@@ -57,6 +60,13 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponseDTO> delete(@RequestParam Long id) {
         employeeService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @GetMapping("departments")
+    public ResponseEntity<List<DepartmentDTO>> getDepartments() {
+        List<DepartmentDTO> departments = employeeService.findAllDepartments();
+        return new ResponseEntity<>(departments, HttpStatus.OK);
 
     }
 }

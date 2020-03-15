@@ -35,5 +35,9 @@ export class EmployeeService {
         return this.http.post(environment.employee, employee);
 
     }
+
+    getDepartments() {
+        return this.http.get(environment.departments);
+    }
 }
 

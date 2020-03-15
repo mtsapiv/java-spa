@@ -15,5 +15,5 @@ public interface EmployeeService {
     List<EmployeeResponseDTO> findAll(int page, int size);
     List<EmployeeResponseDTO> findByName(int page, int size, String name);
     EmployeeResponseDTO findById(Long id);
-    List<DepartmentDTO> findAllDepartments(int page, int size);
+    List<DepartmentDTO> findAllDepartments();
 }

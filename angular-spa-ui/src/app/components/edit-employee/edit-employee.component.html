@@ -12,23 +12,21 @@
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Is Active</mat-label>
-        <mat-select>
-          <mat-option value="option">TRUE</mat-option>
-          <mat-option value="option">FALSE</mat-option>
+        <mat-select [(ngModel)]="employee.isActive">
+          <mat-option *ngFor="let item of isActive" [value]="item">{{item}}</mat-option>
         </mat-select>
       </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Department</mat-label>
-        <mat-select>
-          <mat-option value="option">dep 1</mat-option>
-          <mat-option value="option">dep 2</mat-option>
+        <mat-select [(ngModel)]="employee.department">
+          <mat-option *ngFor="let department of departments" [value]="department.id" >{{department.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>Save</button>
-    <button mat-button>Cancel</button>
+    <button mat-button (click)="setNewEmployee(employee.id, employee.name, employee.isActive, employee.department)">Save</button>
+    <button mat-button (click)="close()">Cancel</button>
   </mat-card-actions>
 </mat-card>

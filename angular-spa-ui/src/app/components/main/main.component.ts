@@ -33,5 +33,8 @@ export class MainComponent implements OnInit {
     if (data === 'close-view') {
       this.showView = false;
     }
+    if (data === 'close-edit') {
+      this.showEdit = false;
+    }
   }
 }

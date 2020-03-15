@@ -4,3 +4,16 @@ export interface Employee {
   isActive: boolean;
   department: string;
 }
+
+
+export interface EmployeeUpdate {
+  id: number;
+  name: string;
+  isActive: boolean;
+  departmentId: number;
+}
+
+export interface Department {
+  id: number;
+  name: string;
+}

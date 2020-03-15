@@ -64,12 +64,11 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
-    public List<Department> findAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        String sql = "SELECT * from department LIMIT ? OFFSET ?";
+    public List<Department> findAll() {
+        String sql = "SELECT * from department";
         RowMapper<Department> rowMapper = new DepartmentMapper();
 
-        List<Department> departments = jdbcTemplate.query(sql, rowMapper, pageable.getPageSize(), pageable.getOffset());
+        List<Department> departments = jdbcTemplate.query(sql, rowMapper);
         return departments;
     }
 }

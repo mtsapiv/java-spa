@@ -10,5 +10,5 @@ public interface DepartmentRepository {
     int update(Department Department);
     int delete(Long id);
     Department getOne(Long id);
-    List<Department> findAll(int page, int size);
+    List<Department> findAll();
 }
