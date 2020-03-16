@@ -27,6 +27,8 @@ export class EmployeesComponent implements OnInit, OnChanges {
 
     name = '';
 
+    paginator;
+
 
     @Output()
     startAction = new EventEmitter<{id: number, action: string}>();

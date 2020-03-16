@@ -17,3 +17,8 @@ export interface Department {
   id: number;
   name: string;
 }
+
+export interface User {
+  username: string;
+  password: string;
+}
