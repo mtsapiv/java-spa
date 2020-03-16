@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  employees: 'http://java:8082/employee/employees',
-  employee: 'http://java:8082/employee',
-  departments: 'http://java:8082/employee/departments',
-  login: 'http://java:8082/login'
+  employees: 'http://localhost:8082/employee/employees',
+  employee: 'http://localhost:8082/employee',
+  departments: 'http://localhost:8082/employee/departments',
+  login: 'http://localhost:8082/login'
 
 };
 

@@ -1,8 +1,8 @@
 version: '3'
 services:
-  docker-mysql:
+  mysql:
     restart: always
-    container_name: docker-mysql
+    container_name: mysql
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${SPA_ROOT_PASSWORD}
@@ -16,6 +16,7 @@ services:
       - "3306:3306"
   java:
     restart: on-failure
+    container_name: java
     build: ./java-spa-backend
     expose:
       - "8082"
@@ -24,8 +25,9 @@ services:
     environment:
       WAIT_HOSTS: mysql:3306
     depends_on:
-      - docker-mysql
+      - mysql
   angular-spa-ui:
+    container_name: angular-spa-ui
     restart: on-failure
     build: ./angular-spa-ui
     expose:

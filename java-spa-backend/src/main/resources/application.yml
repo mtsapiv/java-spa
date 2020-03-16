@@ -4,7 +4,7 @@ server:
 spring:
   driver-class-name: com.mysql.jdbc.Driver
   datasource:
-    url: jdbc:mysql://localhost:3306/spa_db
+    url: jdbc:mysql://mysql:3306/spa_db
     username: spa_user
     password: spa_password
 
