@@ -22,3 +22,8 @@ credentials for UI: password - password, user - user
 
 ```
 
+## Important
+
+It's not finished
+
+TODO - Swagger, Exceptions Handling, Refactoring
