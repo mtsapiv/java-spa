@@ -14,13 +14,13 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
-  java-spa-backend:
+  java:
     restart: on-failure
     build: ./java-spa-backend
     expose:
-      - "8081"
+      - "8082"
     ports:
-      - 8081:8081
+      - 8082:8082
     environment:
       WAIT_HOSTS: mysql:3306
     depends_on:
@@ -33,6 +33,6 @@ services:
     ports:
       - 4200:4200
     environment:
-      WAIT_HOSTS: java-spa-backend:8081
+      WAIT_HOSTS: java:8082
     depends_on:
-      - java-spa-backend
+      - java
