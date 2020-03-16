@@ -8,7 +8,7 @@ It's a test project. Here you can see two modules UI Angular and Backend Java Ap
 You need to have docker and docker compose preinstalled. It's all, because everything will be running in docker containers. 
 
 
-## Running the tests
+## Running application
 
 To run this application please execute command: ./setup.sh spa_password spa_user root
 
